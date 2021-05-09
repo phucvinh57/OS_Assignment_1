@@ -37,9 +37,9 @@ asmlinkage long sys_get_proc_info(pid_t pid, procinfos* info) {
 
 	list = &task->children;
 	oldest_child = list_entry(list->next, struct task_struct, sibling);
-	printk("[%d]--------------[%s]\n", task_child->pid, task_child->comm);
-	info->oldest_child_proc.pid = task_child->pid;
-	strcpy(info->oldest_child_proc.name, task_child->comm);
+	printk("[%d]--------------[%s]\n", oldest_child->pid, oldest_child->comm);
+	info->oldest_child_proc.pid = oldest_child->pid;
+	strcpy(info->oldest_child_proc.name, oldest_child->comm);
 
 	return 0;
 }
