@@ -3,6 +3,7 @@
 #include <linux/sched/signal.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 
 typedef struct {
 	pid_t pid;
@@ -21,8 +22,9 @@ struct task_struct* oldest_child;
 struct list_head* list;
 asmlinkage long sys_get_proc_info(pid_t pid, procinfos* info) {
 	// To do
-	task = pid_task(find_vpid(pid), PIDTYPE_PID);
 	if(pid == -1) pid = getpid();
+	task = pid_task(find_vpid(pid), PIDTYPE_PID);
+	if(task == NULL) return EINVAL;
 
 	info->studentID = 1915940;
 
@@ -33,7 +35,6 @@ asmlinkage long sys_get_proc_info(pid_t pid, procinfos* info) {
 	printk("[%d]--------------[%s]\n", task->parent->pid, task->parent->comm);
 	info->parent_proc.pid = task->parent->pid;
 	strcpy(info->parent_proc.name, task->parent->comm);
-	
 
 	list = &task->children;
 	oldest_child = list_entry(list->next, struct task_struct, sibling);

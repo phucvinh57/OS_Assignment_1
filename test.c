@@ -19,7 +19,7 @@ typedef struct {
 struct task_struct* task;
 struct task_struct* task_child;
 struct list_head * list;
-int pid = 1;
+int pid = -2;
 struct list_head* head;
 
 int iterate_init(void) {
@@ -27,12 +27,14 @@ int iterate_init(void) {
 	//To do: Handle pid = - 1;
 	//if(pid == -1) pid = get_pid();
 	task = pid_task(find_vpid(pid), PIDTYPE_PID);
-	printk("[%d]--------------[%s]\n", task->pid, task->comm);
-	printk("[%d]--------------[%s]\n", task->parent->pid, task->parent->comm);
-
-	head = &task->children;
-	task_child = list_entry(head->next, struct task_struct, sibling);
-	printk("[%d]--------------[%s]\n", task_child->pid, task_child->comm);
+	if(task == NULL) printk("PID not found !!\n");
+	else {
+		printk("[%d]--------------[%s]\n", task->parent->pid, task->parent->comm);
+		printk("[%d]--------------[%s]\n", task->pid, task->comm);
+		head = &task->children;
+		task_child = list_entry(head->next, struct task_struct, sibling);
+		printk("[%d]--------------[%s]\n", task_child->pid, task_child->comm);
+	}
 	return 0;
 }
 void cleanup_exit(void) {
