@@ -2,30 +2,19 @@
 #include <linux/sched.h>
 #include <linux/sched/signal.h>
 #include <linux/init.h>
+#include <linux/string.h>
 #include <linux/module.h>
-
-typedef struct {
-	pid_t pid;
-	char name[16];
-} proc_info;
-
-typedef struct {
-	long studentID;
-	proc_info proc;
-	proc_info parent_proc;
-	proc_info oldest_child_proc;
-} procinfos;
-
+#include <asm/current.h>
 struct task_struct* task;
 struct task_struct* task_child;
 struct list_head * list;
-int pid = -2;
+int pid = -1;
 struct list_head* head;
 
 int iterate_init(void) {
 	printk(KERN_INFO "%s", "LOADING MODULE\n");
 	//To do: Handle pid = - 1;
-	//if(pid == -1) pid = get_pid();
+	if(pid == -1) task = current;
 	task = pid_task(find_vpid(pid), PIDTYPE_PID);
 	if(task == NULL) printk("PID not found !!\n");
 	else {

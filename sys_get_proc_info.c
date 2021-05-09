@@ -3,6 +3,7 @@
 #include <linux/sched/signal.h>
 #include <linux/errno.h>
 #include <linux/string.h>
+#include <asm/current.h>
 typedef struct {
 	pid_t pid;
 	char name[16];
