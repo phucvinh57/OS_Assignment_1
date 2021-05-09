@@ -1,10 +1,8 @@
 #include <linux/kernel.h>
 #include <linux/sched.h>
 #include <linux/sched/signal.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-
+#include <linux/errno.h>
+#include <linux/string.h>
 typedef struct {
 	pid_t pid;
 	char name[16];
@@ -22,8 +20,8 @@ struct task_struct* oldest_child;
 struct list_head* list;
 asmlinkage long sys_get_proc_info(pid_t pid, procinfos* info) {
 	// To do
-	if(pid == -1) pid = getpid();
-	task = pid_task(find_vpid(pid), PIDTYPE_PID);
+	if(pid == -1) task = current;
+	else task = pid_task(find_vpid(pid), PIDTYPE_PID);
 	if(task == NULL) return EINVAL;
 
 	info->studentID = 1915940;
