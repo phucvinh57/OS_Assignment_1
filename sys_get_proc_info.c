@@ -24,13 +24,15 @@ struct task_struct* task;
 struct task_struct* oldest_child;
 struct list_head* list;
 struct procinfos temp;
-int result;
 pid_t kernelpid;
 asmlinkage long sys_get_proc_info(pid_t pid, struct procinfos* info) {
 	// To do
-	result = copy_from_user(&kernelpid, &pid, sizeof(pid_t));
-	if (result == 0) printk("Copy kernelpid successfully\n");
-	else printk("Copy kernel pid fail\n");
+	if(get_user(kernelpid, &pid) == 0)
+		printk("Copy kernelpid successfully\n");
+	else {
+		printk("Copy kernel pid fail\n");
+		return -EFAULT;
+	}
 
 	printk("Param value: %d\n", kernelpid);
 	if(kernelpid == -1) task = current;
@@ -55,12 +57,12 @@ asmlinkage long sys_get_proc_info(pid_t pid, struct procinfos* info) {
 	temp.oldest_child_proc.pid = oldest_child->pid;
 	strcpy(temp.oldest_child_proc.name, oldest_child->comm);
 
-	result = copy_to_user(info, &temp, sizeof(struct procinfos));
-	if (result == 0) {
+	if (copy_to_user(info, &temp, sizeof(struct procinfos)) == 0) {
 		printk("Copy data successfully\n");
 	}
 	else {
 		printk("Copy fail\n");
+		return -EFAULT;S
 	}
 	return 0;
 }
