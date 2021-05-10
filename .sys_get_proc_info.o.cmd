@@ -682,6 +682,11 @@ deps_get_proc_info/sys_get_proc_info.o := \
     $(wildcard include/config/bpf/syscall.h) \
     $(wildcard include/config/net.h) \
   include/linux/ratelimit.h \
+  arch/x86/include/asm/uaccess.h \
+    $(wildcard include/config/x86/intel/usercopy.h) \
+  arch/x86/include/asm/smap.h \
+  arch/x86/include/asm/extable.h \
+  arch/x86/include/asm/uaccess_64.h \
 
 get_proc_info/sys_get_proc_info.o: $(deps_get_proc_info/sys_get_proc_info.o)
 

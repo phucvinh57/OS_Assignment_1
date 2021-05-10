@@ -1,4 +1,4 @@
-obj-m += test.o
+obj-m += test_sys.o
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 clean:

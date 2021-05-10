@@ -26,6 +26,7 @@ static const struct modversion_info ____versions[]
 __used
 __attribute__((section("__versions"))) = {
 	{ 0x6f2f5f9a, "module_layout" },
+	{ 0xb7956d7, "param_ops_long" },
 	{ 0xe325b9ba, "pid_task" },
 	{ 0x98ba97d9, "find_vpid" },
 	{ 0x146eab9f, "current_task" },
@@ -39,4 +40,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "82E5BCEDFB724007C7EFB2B");
+MODULE_INFO(srcversion, "B9E984B0344327E41AE594D");
