@@ -3,7 +3,7 @@
 #include <linux/errno.h>
 #include <linux/string.h>
 #include <linux/uaccess.h>
-#include <linux/syscall.h>
+#include <linux/syscalls.h>
 
 struct proc_info {
 	pid_t pid;
