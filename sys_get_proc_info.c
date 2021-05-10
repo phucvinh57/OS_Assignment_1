@@ -27,7 +27,7 @@ struct procinfos temp;
 pid_t kernelpid;
 asmlinkage long sys_get_proc_info(pid_t pid, struct procinfos* info) {
 	// To do
-	if(get_user(kernelpid, &pid) == 0)
+	if(__get_user(kernelpid, &pid) == 0)
 		printk("Copy kernelpid successfully\n");
 	else {
 		printk("Copy kernel pid fail\n");
@@ -62,7 +62,7 @@ asmlinkage long sys_get_proc_info(pid_t pid, struct procinfos* info) {
 	}
 	else {
 		printk("Copy fail\n");
-		return -EFAULT;S
+		return -EFAULT;
 	}
 	return 0;
 }
