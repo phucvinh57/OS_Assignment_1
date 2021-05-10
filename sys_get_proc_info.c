@@ -17,7 +17,7 @@ struct procinfos {
 	struct proc_info oldest_child_proc;
 };
 
-SYSCALL_DEFINE2(get_proc_info, pid_t, pid, struct procinfos* info) {
+SYSCALL_DEFINE2(get_proc_info, pid_t, pid, struct procinfos*, info) {
 //asmlinkage long sys_get_proc_info(pid_t pid, struct procinfos* info) {
 	// To do
 	struct task_struct* task;
