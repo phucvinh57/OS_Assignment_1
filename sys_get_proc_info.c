@@ -1,11 +1,9 @@
 #include <linux/kernel.h>
-#include <linux/linkage.h>
 #include <linux/sched.h>
-#include <linux/sched/signal.h>
 #include <linux/errno.h>
 #include <linux/string.h>
-#include <asm/current.h>
 #include <linux/uaccess.h>
+#include <linux/syscall.h>
 
 struct proc_info {
 	pid_t pid;
